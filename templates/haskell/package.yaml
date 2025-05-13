@@ -1,0 +1,54 @@
+name:               example
+version:            0.1.0.0
+license:            BSD3
+author:             He Zhenxing
+maintainer:         hezhenxing@gmail.com
+copyright:          2025 He Zhenxing
+description:        A Haskell executable with Nix Flake
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+dependencies:
+  - base >= 4.7 && < 5
+
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wpartial-fields
+  - -Wredundant-constraints
+
+default-extensions:
+  - BangPatterns
+
+library:
+  source-dirs: src
+
+executables:
+  example:
+    main: Main.hs
+    source-dirs: app
+    dependencies:
+      - example
+
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+
+tests:
+  example-test:
+    main: Spec.hs
+    source-dirs: test
+    dependencies:
+      - example
+      - hspec
+
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N

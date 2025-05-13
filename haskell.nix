@@ -1,19 +1,24 @@
 {
   config,
   lib,
-  flakelight,
+  src,
   ...
 }: let
-  inherit (lib) mkOption mkIf mkMerge;
+  inherit (lib) mkMerge;
 in {
   config = mkMerge [
     {
-      devShell.packages = pkgs:
-        with pkgs; [
-          cabal-install
-          haskell-language-server
-          ghcid
-        ];
+      package = pkgs:
+        pkgs.haskellPackages.developPackage {
+          root = src;
+          modifier = drv:
+            pkgs.haskell.lib.addBuildTools drv (with pkgs; [
+              cabal-install
+              ghcid
+              haskell-language-server
+              hpack
+            ]);
+        };
     }
   ];
 }
