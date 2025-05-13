@@ -3,6 +3,7 @@
   inputs.flakelight.url = "github:nix-community/flakelight";
   outputs = {flakelight, ...}:
     flakelight ./. {
+      imports = [flakelight.flakelightModules.flakelightModule];
       flakelightModule = _: {
         imports = [./haskell.nix];
       };
