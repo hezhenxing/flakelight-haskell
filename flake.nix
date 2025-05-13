@@ -5,7 +5,7 @@
     flakelight ./. {
       imports = [flakelight.flakelightModules.flakelightModule];
       flakelightModule = _: {
-        imports = [./haskell.nix];
+        imports = [./flakelight-haskell.nix];
       };
     };
 }
